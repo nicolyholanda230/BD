@@ -108,11 +108,20 @@ UPDATE livro SET paginas = 200, qtdeExemplares=4 WHERE codlivro=6;
 UPDATE livro SET paginas = 150, qtdeExemplares=2 WHERE codlivro=7;
 UPDATE livro SET paginas = 170, qtdeExemplares=3 WHERE codlivro=8;
 
-
-
-
-
-
+SELECT nome, dataNascimento FROM aluno WHERE nome LIKE 'a%';
+SELECT nome, email, dataNascimento from aluno WHERE month(dataNascimento)= '05';
+SELECT nome, email, dataNascimento FROM aluno WHERE year(dataNascimento)='2000';
+SELECT * FROM 'aluno' ORDER by turma DESC;
+SELECT titulo, autor, genero FROM livro WHERE genero LIKE 'Aventura';
+SELECT COUNT(*) FROM livro;
+SELECT titulo, autor, genero FROM livro WHERE autor = 'Miguel de Cervantes';
+SELECT data_emprestimo, data_devolucao, ra FROM emprestimo_devolucao WHERE month(data_emprestimo)='05';
+SELECT nome, email, dataNascimento FROM bibliotecario WHERE nome LIKE 'h%';
+SELECT * FROM bibliotecario ORDER BY nome;
+SELECT * FROM livro ORDER BY genero;
+SELECT titulo, autor, editora FROM livro WHERE editora = 'Francisco de Robles';
+SELECT titulo, autor, genero FROM livro WHERE autor='Miguel de Cervantes' or genero like 'terror';
+SELECT titulo, autor, genero FROM livro WHERE titulo='a' AND genero='terror';
 
 
 
