@@ -1,0 +1,124 @@
+CREATE DATABASE Biblioteca;
+
+USE Biblioteca;
+
+CREATE TABLE aluno (
+ra int PRIMARY KEY AUTO_INCREMENT,
+dataNascimento date,
+telfixo varchar(255),
+nome varchar(255),
+email varchar(255) unique,
+turma varchar(255),
+celular varchar(255),
+tel varchar(255)
+);
+
+CREATE TABLE bibliotecario (
+codFuncionario int PRIMARY KEY AUTO_INCREMENT,
+nome varchar(255),
+email varchar(255) unique,
+tel varchar(255),
+celular varchar(255),
+rg varchar(255) unique,
+dataNascimento date,
+rua varchar(255),
+cpf varchar(255) unique,
+logradouro varchar(255),
+numero varchar(255),
+complemento varchar(255),
+bairro varchar(255),
+cidade varchar(255),
+uf char(2),
+cep varchar(255)
+);
+
+CREATE TABLE livro (
+codlivro int PRIMARY KEY AUTO_INCREMENT,
+editora varchar(255),
+titulo varchar(255),
+autor varchar(255),
+genero varchar(255)
+);
+
+CREATE TABLE emprestimo_devolucao (
+codEmprestimo int PRIMARY KEY AUTO_INCREMENT,
+data_emprestimo date,
+data_devolucao date,
+ra int,
+codFuncionario int,
+codlivro int,
+FOREIGN KEY(ra) REFERENCES aluno (ra),
+FOREIGN KEY(codFuncionario) REFERENCES bibliotecario (codFuncionario),
+FOREIGN KEY(codlivro) REFERENCES livro (codlivro)
+);
+
+INSERT INTO aluno (nome, turma, tel, email, celular, dataNascimento) VALUES
+('Carlos Roberto Silva','2C','4823-0146','carlosalberto@gmail.com','89893-2132','2000-05-06'),
+('Amanda Scarpin','3A','4903-5178','amandascarpin@gmail.com','19198-2038','1999-04-11'),
+('Clara Almeida','1B','7788-9857','claraalmeida@gmail.com','99999-8888','2003-09-09'),
+('João Souza','1A','1243-6478','joaosouza@gmail.com','90876-7465','2001-11-01'),
+('Pedro Henrique','3C','5555-4444','pedrohenrique@gmail.com','39271-1111','1999-03-03'),
+('Natalia Luiza','1C','7362-9912','natalialuiza@gmail.com','22212-1234','2002-12-12'),
+('Henrique Vidal','2A','4453-6614','henriquevidal@gmail.com','10101-9933','2000-09-03'),
+('Julia Felix','3B','3232-2323','juliafelix@gmail.com','22322-2131','1999-06-02'),
+('Barbara Ferreira','2B','7777-7667','barbaraferreira@gmail.com','12771-1617','2000-04-08'),
+('João Victor','2C','4103-5178','joaovictor@gmail.com','12342-4321','2000-02-11'),
+('Gael Raposo','3B','2466-888','gaelraposo@gmail.com','08742-4083','1999-12-07');
+
+INSERT INTO bibliotecario (nome, email, dataNascimento, tel, celular, cpf, cidade, uf, rg, cep, rua, numero, bairro, logradouro, complemento) VALUES
+('Joana Soares','joanasoares@gmail.com','1980-01-15','55555-5555',NULL,'11.222.333-23','Ribeirão Pires','SP',NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('Octavio Roberto','octavioroberto@gmail.com','1977-12-29','66666-6666',NULL,'12.321.233-88','Ribeirão Pires','SP',NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('Raphael Luca','raphaelluca@gmail.com','1990-05-18','77777-7774',NULL,'13.176.677-45','Ribeirão Pires','SP',NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('Murilo Alvaro','muriloalvaro@gmail.com','1992-04-05','88888-8888',NULL,'43.588.587-56','São Caetano do Sul','SP',NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('Helena Gilbert','helenagilbert@gmail.com','1979-11-11','99999-9999',NULL,'55.565.106-06','Ribeirão Pires','SP',NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+INSERT INTO livro (titulo, autor, genero, editora) VALUES
+('Dom Quixote','Miguel de Cervantes','Aventura','Francisco de Robles'),
+('Harry Potter','J.K. Rowling','Mistério, drama e suspense','Rocco'),
+('Minha Vida de Menina','Helena Morley','Biografia','Francisco de Robles'),
+('O Alquimista','Paulo Coelho','Aventura e Fantasia','HarperCollins'),
+('Capitães de Areia','Jorge Amado','Romance e Ficção','José Olympio'),
+('O Cortiço','Aluísio Azevedo','Romance, ficção, Literatura do naturalismo','B. L. Garnier'),
+('A Casa Torta','Agatha Christie','Terror','Intense'),
+('After','Anna Todd','Romance','Cute');
+
+INSERT INTO emprestimo_devolucao (data_emprestimo, data_devolucao, ra, codlivro) VALUES
+('2010-09-09', '2010-09-16', 1, 8),
+('2009-05-16', '2009-05-23', 3, 3),
+('2011-02-02', '2011-02-09', 2, 4),
+('2013-11-14', '2013-11-21', 6, 7),
+('2009-07-01', '2009-07-10', 5, 1),
+('2014-06-04', '2014-06-11', 8, 1),
+('2012-07-01', '2012-07-08', 4, 2),
+('2009-10-01', '2009-10-10', 7,  5),
+('2010-07-09', '2010-07-16', 9, 2),
+('2009-03-08', '2009-03-15', 10, 2);
+
+ALTER TABLE bibliotecario DROP COLUMN rua;
+ALTER TABLE livro ADD COLUMN Paginas int;
+ALTER TABLE livro ADD COLUMN qtdeExemplares int;
+
+
+UPDATE livro SET paginas = 300, qtdeExemplares=5 WHERE codlivro=1;
+UPDATE livro SET paginas = 100, qtdeExemplares=2 WHERE codlivro=2;
+UPDATE livro SET paginas = 150, qtdeExemplares=4 WHERE codlivro=3;
+UPDATE livro SET paginas = 130, qtdeExemplares=5 WHERE codlivro=4;
+UPDATE livro SET paginas = 140, qtdeExemplares=3 WHERE codlivro=5;
+UPDATE livro SET paginas = 200, qtdeExemplares=4 WHERE codlivro=6;
+UPDATE livro SET paginas = 150, qtdeExemplares=2 WHERE codlivro=7;
+UPDATE livro SET paginas = 170, qtdeExemplares=3 WHERE codlivro=8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
