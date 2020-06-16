@@ -1,0 +1,98 @@
+CREATE DATABASE farmacia;
+
+USE farmacia;
+
+CREATE TABLE caixa_atendente (
+codCaixa int PRIMARY KEY AUTO_INCREMENT,
+nome varchar(255),
+rg varchar(255),
+salario decimal(7,2),
+email varchar(255),
+cpf varchar(255),
+tel varchar(255),
+celular varchar(255)
+);
+
+CREATE TABLE produto_remedio (
+codProduto int PRIMARY KEY AUTO_INCREMENT,
+qtde varchar(255),
+preco varchar(255),
+nome varchar(255),
+generico varchar(255),
+fabricante varchar(255)
+);
+
+CREATE TABLE compra_venda (
+codCompra_Venda int PRIMARY KEY AUTO_INCREMENT,
+hora time,
+data date,
+total varchar(255),
+cpf varchar(255),
+codCaixa int
+FOREIGN KEY(codCaixa) REFERENCES caixa_atendente (codCaixa)
+);
+
+CREATE TABLE itens_compra (
+codCompra_Venda int,
+codProduto int,
+qtde varchar(255),
+totalUnit varchar(255),
+FOREIGN KEY(codCompra_Venda) REFERENCES compra_venda (codCompra_Venda),
+FOREIGN KEY(codProduto) REFERENCES produto_remedio (codProduto)
+);
+
+INSERT INTO caixa_atendente (nome, cpf, rg, email, celular, salario) VALUES
+('Adrian Felipe','321.321.321-32','23.234.421-2','adrianfelipe@gmail.com','12345-1234','2.000'),
+('Tamires Rodrigues','123.123.123-12','54.555.444-3','tamirodrigues@gmail.com','54321-4321','2.000'),
+('Alana Silva','654.654.654-65','22.222.222-7','alanasilva@gmail.com','56789-9876','2.000'),
+('Carlos Almeida','456.456.456-45','11.111.111-1','carlosalmeida@gmail.com','10987-0981','3.000'),
+('Josué Ferreira','987.987.987-98','33.333.333-3','josueferreira@gmail.com','44475-5551','2.000'),
+('Patricia Pinho','132.431.431-23','17.777.777-4','patipinho@gmail.com','66666-6666','3.000');
+
+INSERT INTO  produto_remedio (nome, fabricante, generico, preco, qtde) VALUES
+('Dipirona','Medley',0,5.00,3),
+('Dorflex','Bawer',0,3.00,5),
+('Creme para pentear','Gold',0,7.00,1),
+('Advil','Flex',1,2.00,5),
+('Bala de Gelatina','Fini',0,6.50,3),
+('Vitamina B','Zapemax',1,4.00,5),
+('Desodorante','Dove',0,12.00,3),
+('Sabonete','Dove',0,4.00,4),
+('Manteiga de Cacau','Hidratex',0,1.00,5),
+('Shamppo','Pantene',0,16.00,3);
+
+INSERT INTO compra_venda (codAtendente, cpf, data, hora, total) VALUES
+(6,'787.787.787-78','2020-05-13','11:23:00',10.00),
+(1,'687.687.687-68','2020-04-12','18:25:00',03.70),
+(4,'576.576.576-57','2020-02-02','10:47:00',05.50),
+(3,'567.567.110-56','2020-06-03','20:59:00',2.00),
+(2,'200.200.666-20','2020-03-17','12:37:00',9.48),
+(5,'999.599.696-23','2020-05-22','17:17:00',08.00),
+(6,'123.777.444-04','2020-05-25','09:09:00',25.43),
+(3,'124.174.303-21','2020-06-09','10:31:00',10.80),
+(2,'993.993.993-93','2020-04-30','22:00:00',30.90),
+(2,'663.875.873-73','2020-05-23','06:30:00',26.05);
+
+INSERT INTO itens_compra (codCompra_Venda, codProduto, qtde, total_unitario) VALUES
+(1,10,2,32.0),
+(2,1,3,15.00),
+(3,5,1,6.50),
+(4,2,3,9.00),
+(5,6,1,4.00),
+(6,3,2,14.00),
+(7,4,5,10.00),
+(8,7,3,34.00),
+(9,8,5,20.00),
+(10,9,2,2.00);
+
+
+
+
+
+
+
+
+
+
+
+
